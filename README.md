@@ -1,4 +1,4 @@
-# NEXUS LEARN
+# Mee-Eain
 
 A student opportunity platform built with Next.js App Router, TypeScript, Tailwind CSS 4, Neon Managed Auth, Neon Postgres, and Drizzle ORM.
 

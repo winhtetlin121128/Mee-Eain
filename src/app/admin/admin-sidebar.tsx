@@ -12,7 +12,7 @@ const items = [
 export function AdminSidebar() {
   const pathname = usePathname();
   return <aside className="admin-sidebar">
-    <Link href="/admin" className="admin-sidebar-brand"><span className="admin-sidebar-mark">N</span><span><strong>NEXUS</strong><small>ADMIN CONSOLE</small></span></Link>
+    <Link href="/admin" className="admin-sidebar-brand"><span className="admin-sidebar-mark">M</span><span><strong>MEE-EAIN</strong><small>ADMIN CONSOLE</small></span></Link>
     <nav className="admin-sidebar-nav" aria-label="Admin menu">
       <p className="eyebrow">Workspace</p>
       {items.map(item => {

@@ -1,4 +1,4 @@
-Build a full-stack learning and student opportunity platform called **NEXUS LEARN** using **Next.js (App Router), TypeScript, Tailwind CSS, Neon Postgres (with Drizzle or Prisma ORM), and Neon Auth**.
+Build a full-stack learning and student opportunity platform called **Mee-Eain** using **Next.js (App Router), TypeScript, Tailwind CSS, Neon Postgres (with Drizzle or Prisma ORM), and Neon Auth**.
 
 ### 1. Design System (Swiss-Editorial Minimalist)
 - **Palette**: Off-white canvas (`#FAF9F6`), crisp white cards (`#FFFFFF`), deep ink typography (`#111111`), subtle `1px` borders (`#E4E4E0`), and Neon emerald (`#00C882`) accents for active states and primary CTAs.
