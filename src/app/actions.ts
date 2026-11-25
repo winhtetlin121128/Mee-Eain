@@ -6,13 +6,13 @@ import { z } from "zod";
 import { auth } from "@/lib/auth";
 import { getDb } from "@/db";
 import { posts,userPostActions,users } from "@/db/schema";
-async function currentUser(){const{data}=await auth.getSession();if(!data?.user)redirect("/auth/sign-in");return data.user}
+async function currentUser(){if(!auth)throw new Error("Authentication is not configured. Set NEON_AUTH_BASE_URL and NEON_AUTH_COOKIE_SECRET in the deployment environment.");const{data}=await auth.getSession();if(!data?.user)redirect("/auth/sign-in");return data.user}
 async function ensureProfile(u:{id:string;name:string;email:string}){
  const db=getDb();await db.insert(users).values({id:u.id,name:u.name,email:u.email}).onConflictDoNothing();
  const[p]=await db.select().from(users).where(eq(users.id,u.id)).limit(1);return p;
 }
 export async function syncProfile(name:string,university:string,major:string,adminCode?:string){
- const{data}=await auth.getSession();if(!data?.user)throw new Error("Sign in to finish creating your profile.");
+ if(!auth)throw new Error("Authentication is not configured. Set NEON_AUTH_BASE_URL and NEON_AUTH_COOKIE_SECRET in the deployment environment.");const{data}=await auth.getSession();if(!data?.user)throw new Error("Sign in to finish creating your profile.");
  const db=getDb(),isAdmin=!!adminCode&&!!process.env.DEMO_ADMIN_BOOTSTRAP_CODE&&adminCode===process.env.DEMO_ADMIN_BOOTSTRAP_CODE;
  await db.insert(users).values({id:data.user.id,name:name||data.user.name||"Student",email:data.user.email,university,major,role:isAdmin?"admin":"student"}).onConflictDoUpdate({target:users.id,set:{name:name||data.user.name||"Student",university,major}});
  return{ok:true};

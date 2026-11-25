@@ -10,7 +10,7 @@ export const demoPosts=[
 {id:"00000000-0000-4000-8000-000000000004",title:"Product research intern — 2027 intake",category:"internship" as const,summary:"Help a small product team make education tools more useful through interviews, synthesis, and rapid experiments.",organization:"Thitsa Labs",locationOrLink:"Hybrid · Yangon",eventDate:null,deadline:"2027-01-15",isPinned:false,createdBy:"demo",createdAt:new Date()},
 {id:"00000000-0000-4000-8000-000000000005",title:"Volunteer tutors for the next cohort",category:"volunteer" as const,summary:"Support high-school learners with a weekly hour of practical maths, writing, or digital skills mentoring.",organization:"Open Door Learning",locationOrLink:"Online or in person",eventDate:null,deadline:"2026-12-22",isPinned:false,createdBy:"demo",createdAt:new Date()}
 ];
-export async function getViewer(){const{data}=await auth.getSession();return data?.user??null}
+export async function getViewer(){if(!auth)return null;const{data}=await auth.getSession();return data?.user??null}
 const fallbackHomeData={posts:demoPosts,stats:{users:1248,active:86,upcoming:12},actions:[] as {postId:string;actionType:"saved"|"applied"}[]};
 export async function getPublicListings(){
  if(!process.env.DATABASE_URL)return demoPosts;
