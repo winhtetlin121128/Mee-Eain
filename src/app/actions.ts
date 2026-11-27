@@ -27,9 +27,9 @@ export async function checkInToday(){
  const u=await currentUser(),profile=await ensureProfile(u),db=getDb();
  const today=new Date().toISOString().slice(0,10),yesterday=new Date(Date.now()-86400000).toISOString().slice(0,10);
  const result=await db.execute(sql`UPDATE users SET
- current_streak=CASE WHEN checkin_history @> jsonb_build_array(${yesterday}) THEN current_streak+1 ELSE 1 END,
- last_checkin_at=now(),checkin_history=checkin_history || jsonb_build_array(${today})
- WHERE id=${profile.id} AND NOT (checkin_history @> jsonb_build_array(${today}))
+ current_streak=CASE WHEN checkin_history @> jsonb_build_array(${yesterday}::text) THEN current_streak+1 ELSE 1 END,
+ last_checkin_at=now(),checkin_history=checkin_history || jsonb_build_array(${today}::text)
+ WHERE id=${profile.id} AND NOT (checkin_history @> jsonb_build_array(${today}::text))
  RETURNING current_streak`);
  const row=result.rows[0] as {current_streak:number}|undefined;
  revalidatePath("/profile");
@@ -71,3 +71,4 @@ export async function removeAction(id:string){
  const u=await currentUser(),p=await ensureProfile(u);
  await getDb().delete(userPostActions).where(and(eq(userPostActions.id,id),eq(userPostActions.userId,p.id)));revalidatePath("/profile");
 }
+
